@@ -7,15 +7,15 @@ import java.util.Random;
 public class Randomizer {
 
     /**
-     * Создаёт уникальное случайное число типа {@Long} и добавляет его в список уникальных идентификаторов {@DataId}
-     * @return
+     * Создаёт уникальное случайное число типа {@Id} и добавляет его в список уникальных идентификаторов {@DataId}
+     * @return {@Id}уникальный номер
      */
-    public static Long getRandomId() {
+    public static Id getRandomId() {
         DataId data = DataId.getInstance();
-        long rand = new Random().nextLong();
+        Id rand = new Id(new Random().nextLong());
         while(true) {
             if(data.contains(rand)) {
-                rand = new Random().nextLong();
+                rand = new Id(new Random().nextLong());
             } else {
                 data.add(rand);
                 break;

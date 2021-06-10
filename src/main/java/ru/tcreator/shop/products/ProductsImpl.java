@@ -2,15 +2,15 @@ package ru.tcreator.shop.products;
 
 import ru.tcreator.idData.Id;
 import ru.tcreator.idData.Randomizer;
+import ru.tcreator.shop.products.builder.ProductsBuilder;
 
 public class ProductsImpl implements Products, Comparable<ProductsImpl> {
-    protected String name;
-
     @Override
     public int compareTo(ProductsImpl products) {
         return id.compareTo(products.getId());
     }
 
+    protected String name;
     protected String type;
     protected String condition;
     protected double weight;
@@ -19,42 +19,42 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
     protected double price;
     protected Id id;
 
-    public ProductsImpl(String name, int count, String type, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, double price) {
         this.name = name;
         this.count = count;
         this.type = type;
         this.price = price;
-        createId();
+        this.id = id;
     }
 
-    public ProductsImpl(String name, int count, String type, String condition, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, String condition, double price) {
         this.name = name;
         this.count = count;
         this.type= type;
         this.condition = condition;
         this.price = price;
-        createId();
+        this.id = id;
     }
 
-    public ProductsImpl(String name, int count, String type, String condition, double weight, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, String condition, double weight, double price) {
         this.name = name;
         this.count = count;
         this.type= type;
         this.condition = condition;
         this.weight = weight;
         this.price = price;
-        createId();
+        this.id = id;
     }
 
-    public ProductsImpl(String name, int count, String type, String condition, double weight, String provider, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, String condition, double weight, String provider, double price) {
         this.name = name;
         this.count = count;
-        this.type= type;
+        this.type = type;
         this.condition = condition;
         this.weight = weight;
         this.provider = provider;
         this.price = price;
-        createId();
+        this.id = id;
     }
 
     public String getName() {
@@ -69,11 +69,22 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
         return condition;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
     public double getWeight() {
         return weight;
     }
 
-    public boolean takeCount(int quantity) {
+
+    /**
+     * Снять количество продукта
+     * @param quantity
+     * @return
+     */
+    protected boolean takeCount(int quantity) {
+
         if(quantity > count) {
            return false;
         } else {
@@ -90,14 +101,25 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
         return id;
     }
 
-    protected void createId() {
-        this.id = new Id(Randomizer.getRandomId());
-    }
-
     @Override
     public String toString() {
         return "ProductsImpl {" +
                 "товар ='" + name + type + '\'' + ". остаток = " + count +
                 '}';
+    }
+
+    /**
+     * Возвращеает предзаполненный билдер продукта {@ProductsImpl}
+     * предзаполненные поля: type, price, name, id
+     * @return {@ProductsBuilder}
+     */
+    public ProductsBuilder getProductChildBuilder() {
+        return new ProductsBuilder()
+                .setName(name)
+                .setPrice(price)
+                .setType(type)
+                .setId(id)
+                .setWeight(weight)
+                .setProvider(provider);
     }
 }

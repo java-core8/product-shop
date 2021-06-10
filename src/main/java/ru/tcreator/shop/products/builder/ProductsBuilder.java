@@ -1,8 +1,8 @@
 package ru.tcreator.shop.products.builder;
+import ru.tcreator.idData.Id;
 import ru.tcreator.shop.products.ProductsImpl;
 
 public class ProductsBuilder {
-    private ProductsBuilder builder;
     protected String name;
     protected String type;
     protected String condition;
@@ -10,9 +10,9 @@ public class ProductsBuilder {
     protected int count;
     protected String provider;
     protected double price;
+    protected Id id;
 
-    ProductsBuilder() {
-        this.builder = new ProductsBuilder();
+    public ProductsBuilder() {
         this.weight = -1;
         this.count = -1;
         this.price = -1;
@@ -23,6 +23,11 @@ public class ProductsBuilder {
             throw new ArithmeticException("Вес товаров не может быть меньше ноля");
         }
         this.price = price;
+        return this;
+    }
+
+    public ProductsBuilder setId(Id id) {
+        this.id = id;
         return this;
     }
 
@@ -63,17 +68,17 @@ public class ProductsBuilder {
     }
 
     public ProductsImpl build() throws Exception{
-        if(name != null && count != -1 && type != null && price != -1) {
+        if(name != null && count != -1 && type != null && price != -1 && id != null) {
             if(condition != null) {
                 if (weight != -1) {
                     if(provider != null) {
-                        return new ProductsImpl(name, count, type, condition, weight, condition, price);
+                        return new ProductsImpl(id, name, count, type, condition, weight, condition, price);
                     }
-                    return new ProductsImpl(name, count, type, condition, weight, price);
+                    return new ProductsImpl(id, name, count, type, condition, weight, price);
                 }
-                return new ProductsImpl(name, count, type, condition, price);
+                return new ProductsImpl(id, name, count, type, condition, price);
             }
-            return new ProductsImpl(name, count, type, price);
+            return new ProductsImpl(id, name, count, type, price);
         } else {
             throw new Exception("Недостаточно данных для создания объекта");
         }

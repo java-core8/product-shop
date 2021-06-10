@@ -3,7 +3,7 @@ package ru.tcreator.idData;
 import java.util.Set;
 
 public class DataId {
-    protected Set<Long> randomSpace;
+    protected Set<Id> randomSpace;
     protected static DataId data;
 
     private DataId() {}
@@ -15,11 +15,23 @@ public class DataId {
         return data;
     }
 
-    public boolean contains(Long id) {
+
+    /**
+     * Проверяет наличие номера в списке
+     * @param id {@Long}
+     * @return true если id есть в списке
+     */
+    public boolean contains(Id id) {
         return randomSpace.contains(id);
     }
 
-    public boolean add(Long id) {
+
+    /**
+     * Добавляет новый уникальный номер в список
+     * @param id {@Link}
+     * @return true если добавлено успешно
+     */
+    public boolean add(Id id) {
         return randomSpace.add(id);
     }
 

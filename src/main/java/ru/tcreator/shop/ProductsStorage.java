@@ -1,8 +1,7 @@
 package ru.tcreator.shop;
-
+import ru.tcreator.idData.DataId;
 import ru.tcreator.idData.Id;
 import ru.tcreator.shop.products.Products;
-
 import java.util.Map;
 
 /**
@@ -17,7 +16,7 @@ public class ProductsStorage {
 
     /**
      * Возвращает инстанс ProductsStorage
-     * @return
+     * @return {@ProductsStorage}
      */
     public static ProductsStorage getInstance() {
         if(storage == null) {
@@ -37,5 +36,21 @@ public class ProductsStorage {
             throw new ArrayIndexOutOfBoundsException("Продукт с индекосм " + prodId + "не найден");
         }
         return dataStorage.get(prodId);
+    }
+
+
+    /**
+     * Добавляет продукт в общий список товаров
+     * @param id {@Id}
+     * @param products {@Products @ProductsImpl}
+     * @return true если добавлен успешно
+     */
+    public boolean addProduct(Id id, Products products) {
+        DataId dataId = DataId.getInstance();
+        if(dataId.contains(id)) {
+
+        } else {
+
+        }
     }
 }
