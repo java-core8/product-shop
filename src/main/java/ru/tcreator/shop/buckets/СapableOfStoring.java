@@ -1,4 +1,4 @@
-package ru.tcreator.shop.backets;
+package ru.tcreator.shop.buckets;
 
 import ru.tcreator.shop.products.Products;
 

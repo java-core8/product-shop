@@ -17,4 +17,8 @@ public class Id implements Identificator, Comparable<Identificator>{
         return id;
     }
 
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 }
