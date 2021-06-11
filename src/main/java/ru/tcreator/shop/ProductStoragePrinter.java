@@ -1,5 +1,4 @@
-package ru.tcreator.shop.buckets;
-
+package ru.tcreator.shop;
 import ru.tcreator.filtering.Filter;
 import ru.tcreator.idData.Id;
 import ru.tcreator.printer.Printable;
@@ -8,20 +7,27 @@ import ru.tcreator.shop.products.ProductsImpl;
 
 import java.util.Map;
 
-public class BucketPrinter extends Bucket implements Printable {
-    public BucketPrinter() {}
+public class ProductStoragePrinter implements Printable {
+    public ProductStoragePrinter() {}
 
     @Override
     public void print(Filter<String> filter) {
-        Map<Id, Products> prodList = super.productsList;
-        StringBuilder builder = new StringBuilder("Содержимое корзины: ").append("\n");
-        for (Map.Entry<Id, Products> tmp: prodList.entrySet()) {
+        /**
+         * Todo увеличить диапазон фильтрации
+         */
+        ProductsStorage productsStorage = ProductsStorage.getInstance();
+
+        StringBuilder builder = new StringBuilder("Товары магазина: ").append("\n");
+        for (Map.Entry<Id, Products> tmp: productsStorage.dataStorage.entrySet()) {
             ProductsImpl prodTmp = (ProductsImpl) tmp.getValue();
             String nameProd = prodTmp.getName();
             String typeProd = prodTmp.getType();
 
             //TODO filtering/ Добавить больше вариаций для фильтрации не только по имени
-            if(filter.filter(nameProd + " " + typeProd)) {
+            // Разобраться как фильтровать сразу несколько
+            // Пока что есть фильтрация только по группам
+
+            if(filter.filter(prodTmp.getGroup())) {
                 String formatStringItem = String.format("id: %s, name: %s, price: %f, ",
                         prodTmp.getId(),
                         nameProd + " " + typeProd,
@@ -30,5 +36,6 @@ public class BucketPrinter extends Bucket implements Printable {
             }
         }
         System.out.println(builder);
+
     }
 }

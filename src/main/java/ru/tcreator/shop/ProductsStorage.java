@@ -1,5 +1,4 @@
 package ru.tcreator.shop;
-import ru.tcreator.idData.DataId;
 import ru.tcreator.idData.Id;
 import ru.tcreator.shop.products.Products;
 import java.util.Map;
@@ -7,7 +6,6 @@ import java.util.Map;
 /**
  * Класс для хранения всех товаров в магазине
  */
-
 public class ProductsStorage {
     protected static ProductsStorage storage;
     protected Map<Id, Products> dataStorage;
@@ -45,12 +43,9 @@ public class ProductsStorage {
      * @param products {@Products @ProductsImpl}
      * @return true если добавлен успешно
      */
-    public boolean addProduct(Id id, Products products) {
-        DataId dataId = DataId.getInstance();
-        if(dataId.contains(id)) {
-
-        } else {
-
-        }
+    public void addProduct(Id id, Products products) {
+        //TODO logging
+        /* log that */
+        dataStorage.put(id, products);
     }
 }

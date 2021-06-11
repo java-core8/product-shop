@@ -11,6 +11,7 @@ public class ProductsBuilder {
     protected String provider;
     protected double price;
     protected Id id;
+    protected String group;
 
     public ProductsBuilder() {
         this.weight = -1;
@@ -23,6 +24,11 @@ public class ProductsBuilder {
             throw new ArithmeticException("Вес товаров не может быть меньше ноля");
         }
         this.price = price;
+        return this;
+    }
+
+    public ProductsBuilder setGroup(String group) {
+        this.group = group;
         return this;
     }
 
@@ -68,17 +74,17 @@ public class ProductsBuilder {
     }
 
     public ProductsImpl build() throws Exception{
-        if(name != null && count != -1 && type != null && price != -1 && id != null) {
+        if(name != null && count != -1 && type != null && price != -1 && id != null && group != null) {
             if(condition != null) {
                 if (weight != -1) {
                     if(provider != null) {
-                        return new ProductsImpl(id, name, count, type, condition, weight, condition, price);
+                        return new ProductsImpl(id, name, count, type, condition, weight, condition, price, group);
                     }
-                    return new ProductsImpl(id, name, count, type, condition, weight, price);
+                    return new ProductsImpl(id, name, count, type, condition, weight, price, group);
                 }
-                return new ProductsImpl(id, name, count, type, condition, price);
+                return new ProductsImpl(id, name, count, type, condition, price, group);
             }
-            return new ProductsImpl(id, name, count, type, price);
+            return new ProductsImpl(id, name, count, type, price, group);
         } else {
             throw new Exception("Недостаточно данных для создания объекта");
         }

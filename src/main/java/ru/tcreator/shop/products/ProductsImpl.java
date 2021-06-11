@@ -1,7 +1,6 @@
 package ru.tcreator.shop.products;
 
 import ru.tcreator.idData.Id;
-import ru.tcreator.idData.Randomizer;
 import ru.tcreator.shop.products.builder.ProductsBuilder;
 
 public class ProductsImpl implements Products, Comparable<ProductsImpl> {
@@ -18,25 +17,31 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
     protected String provider;
     protected double price;
     protected Id id;
+    protected String group;
 
-    public ProductsImpl(Id id, String name, int count, String type, double price) {
+    public ProductsImpl(Id id, String name, int count, String type,
+                        double price, String group) {
         this.name = name;
         this.count = count;
         this.type = type;
         this.price = price;
         this.id = id;
+        this.group = group;
     }
 
-    public ProductsImpl(Id id, String name, int count, String type, String condition, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, String condition,
+                        double price, String group) {
         this.name = name;
         this.count = count;
         this.type= type;
         this.condition = condition;
         this.price = price;
         this.id = id;
+        this.group = group;
     }
 
-    public ProductsImpl(Id id, String name, int count, String type, String condition, double weight, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, String condition,
+                        double weight, double price, String group) {
         this.name = name;
         this.count = count;
         this.type= type;
@@ -44,9 +49,11 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
         this.weight = weight;
         this.price = price;
         this.id = id;
+        this.group = group;
     }
 
-    public ProductsImpl(Id id, String name, int count, String type, String condition, double weight, String provider, double price) {
+    public ProductsImpl(Id id, String name, int count, String type, String condition,
+                        double weight, String provider, double price, String group) {
         this.name = name;
         this.count = count;
         this.type = type;
@@ -55,6 +62,7 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
         this.provider = provider;
         this.price = price;
         this.id = id;
+        this.group = group;
     }
 
     public String getName() {
@@ -77,6 +85,9 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
         return weight;
     }
 
+    public String getGroup() {
+        return group;
+    }
 
     /**
      * Снять количество продукта
@@ -120,6 +131,7 @@ public class ProductsImpl implements Products, Comparable<ProductsImpl> {
                 .setType(type)
                 .setId(id)
                 .setWeight(weight)
-                .setProvider(provider);
+                .setProvider(provider)
+                .setGroup(group);
     }
 }
